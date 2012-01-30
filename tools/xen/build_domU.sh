@@ -24,8 +24,8 @@ HOST_IP=${HOST_IP:-`ifconfig xenbr0 | grep "inet addr" | cut -d ":" -f2 | sed "s
 
 # Our nova host's network info 
 VM_IP=${VM_IP:-10.255.255.255} # A host-only ip that let's the interface come up, otherwise unused
-MGT_IP=${MGT_IP:-172.16.100.55}
-PUB_IP=${PUB_IP:-192.168.1.55}
+MGT_IP=${MGT_IP:-172.16.100.41}
+PUB_IP=${PUB_IP:-192.168.1.41}
 
 # Public network
 PUB_BR=${PUB_BR:-xenbr0}
@@ -78,8 +78,8 @@ create_network $PUB_BR
 PIF=`xe pif-list --minimal device=eth0`
 
 # Create networks/bridges for vm and management
-VM_NET=`xe network-list --minimal bridge=$VM_BR`
-MGT_NET=`xe network-list --minimal bridge=$MGT_BR`
+VM_NET=`xe network-list --minimal name-label=$VM_BR`
+MGT_NET=`xe network-list --minimal name-label=$MGT_BR`
 
 # Helper to create vlans
 function create_vlan() {
